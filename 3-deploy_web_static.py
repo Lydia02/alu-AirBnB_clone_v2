@@ -6,7 +6,11 @@ from fabric.api import env
 from fabric.api import local
 from fabric.api import put
 from fabric.api import run
+
+
 env.hosts = ['54.83.105.21', '100.27.227.145']
+
+
 def do_pack():
     """ creates gzipped archive of the directory web_static """
     dt = datetime.utcnow()
@@ -22,6 +26,8 @@ def do_pack():
     if local("tar -cvzf {} web_static".format(file)).failed is True:
         return None
     return file
+
+
 def do_deploy(archive_path):
     """
         Function to distribute archive to a web server
@@ -61,6 +67,8 @@ def do_deploy(archive_path):
            format(name)).failed is True:
         return False
     return True
+
+
 def deploy():
     """ creates and redistribute an archive to web server """
     file = do_pack()
