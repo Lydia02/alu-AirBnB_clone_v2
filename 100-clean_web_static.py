@@ -7,11 +7,16 @@ fab -f 100-clean_web_static.py do_clean:number=2
 
 import os
 from fabric.api import *
+
 env.hosts = ['54.83.105.21', '100.27.227.145']
+
+
 def do_clean(number=0):
     """Delete out-of-date archives.
+
     Args:
         number (int): The number of archives to keep.
+
     If number is 0 or 1, keeps only the most recent archive. If
     number is 2, keeps the most and second-most recent archives,
     etc.
