@@ -4,13 +4,10 @@ Deletes out-of-date archives
 fab -f 100-clean_web_static.py do_clean:number=2
     -i ssh-key -u ubuntu > /dev/null 2>&1
 """
-
 import os
 from fabric.api import *
 
 env.hosts = ['54.83.105.21', '100.27.227.145']
-
-
 def do_clean(number=0):
     """Delete out-of-date archives.
     Args:
@@ -20,7 +17,6 @@ def do_clean(number=0):
     etc.
     """
     number = 1 if int(number) == 0 else int(number)
-
     archives = sorted(os.listdir("versions"))
     [archives.pop() for i in range(number)]
     with lcd("versions"):
