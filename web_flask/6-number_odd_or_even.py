@@ -1,54 +1,71 @@
 #!/usr/bin/python3
-""" Write a script that starts a Flask web application,
-Web application is listening on 0.0.0.0, port 5000 """
+"""
+    python script that starts a Flask web application
+"""
 
 from flask import Flask, render_template
-
 app = Flask(__name__)
 
 
-@app.route("/")
-def hello_hbnb():
-    """ Displaying Hello HBNB! """
-    return "Hello HBNB!"
+@app.route('/')
+def hello():
+    """
+        Return: string when route queried
+    """
+    return 'Hello HBNB!'
 
 
-@app.route("/hbnb")
+@app.route('/hbnb')
 def hbnb():
-    """ Display HBNB! """
-    return "HBNB"
+    """
+        Return: string when route queried
+    """
+    return 'HBNB'
 
 
-@app.route("/c/<text>")
-def text_c(text):
-    """ Display C """
-    return "C {}".format(text.replace("_", " "))
+@app.route('/c/<text>')
+def c_is_fun(text):
+    """
+        Return: reformatted text
+    """
+    return 'C ' + text.replace('_', ' ')
 
 
-@app.route("/python/")
-@app.route("/python/<text>")
-def text_py(text="is cool"):
-    """ Display Python """
-    return "Python {}".format(text.replace("_", " "))
+@app.route('/python/')
+@app.route('/python/<text>')
+def python_with_text(text='is cool'):
+    """
+        Return: formatted text based on optional variable
+    """
+    return 'Python ' + text.replace('_', ' ')
 
 
-@app.route("/number/<int:n>")
-def num_n(n):
-    """Displaying the number n"""
-    return "{} is a number".format(n)
+@app.route('/number/<int:n>')
+def number(n=None):
+    """
+        Return: string if n is an integer
+    """
+    return str(n) + ' is a number'
 
 
-@app.route("/number_template/<int:n>")
-def html_n(n):
-    """Rendering a template to display an HTML page"""
-    return render_template('5-number.html', n=n)
+@app.route('/number_template/<int:n>')
+def number_template(n):
+    """
+        Return: HTML page if n is an integer
+    """
+    path = '5-number.html'
+    return render_template(path, n=n)
 
 
-@app.route("/number_odd_or_even/<int:n>")
-def num_odd_even(n):
-    """Verify if it is odd or even"""
-    return render_template('6-number_odd_or_even.html', n=n)
+@app.route('/number_odd_or_even/<int:n>')
+def number_odd_or_even(n):
+    """
+        Return: HTML page if n is an integer
+    """
+    path = '6-number_odd_or_even.html'
+    return render_template(path, n=n)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+
+if __name__ == '__main__':
     app.url_map.strict_slashes = False
+    app.run(host='0.0.0.0', port=5000)
